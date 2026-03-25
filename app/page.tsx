@@ -1,9 +1,9 @@
-"use client"; // Bắt buộc để sử dụng Leaflet trong Next.js 13
+"use client"; // To use Leaflet in Next.js 13
 import CafeSearch from '@/components/CafeSearch/CafeSearch';
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-// Import component Map với tùy chọn ssr: false
+// Import Map component with ssr: false
 const MapWithNoSSR = dynamic(() => import('@/components/Map/MyMap'), {
   ssr: false,
   loading: () => (
@@ -13,7 +13,7 @@ const MapWithNoSSR = dynamic(() => import('@/components/Map/MyMap'), {
   )
 });
 
-// Định nghĩa Interface để dùng chung
+// Define Cafe interface for common use
 export interface Cafe {
   id: number;
   name: string;
@@ -23,16 +23,12 @@ export interface Cafe {
 }
 
 export default function Home() {
-
   const [cafes, setCafes] = React.useState<Cafe[]>([]);
   const [center, setCenter] = React.useState<[number, number]>([10.7765, 106.6947]);  // Default center is HCM City
 
-
-
-
-
   return (
     <div>
+      {/* Cafe search component */}
       <CafeSearch onSearchFinished={(cafesList: Cafe[], searchCenter: [number, number]) => {
         setCafes(cafesList);
         setCenter(searchCenter);
@@ -42,7 +38,7 @@ export default function Home() {
           Find Cafe Near You
         </h1>
 
-        {/* Container cho bản đồ - Cần xác định chiều cao cụ thể */}
+        {/* Container for Leaflet map, need define the height for it */}
         <div className="h-[600px] w-full max-w-5xl shadow-xl overflow-hidden rounded-xl">
           <MapWithNoSSR cafes={cafes} center={center} />
         </div>

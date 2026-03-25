@@ -1,14 +1,15 @@
-// app/api/cafes/route.ts
 import { NextResponse } from 'next/server';
 import { Pool } from 'pg';
 
 const pool = new Pool({
-    // connectionString: process.env.DATABASE_URL, // Lưu trong file .env
-    user: 'postgres',
-    host: 'localhost',
-    database: 'map_features_db',
-    password: '1610',
-    port: 5432,
+    // Instead of hardcoding, you should use environment variables for sensitive information like database credentials.
+    // The variable should be specified in .env file
+    connectionString: process.env.DATABASE_URL,
+    // user: '',
+    // host: '',
+    // database: '',
+    // password: '',
+    // port: '',
 });
 
 export async function GET(request: Request) {

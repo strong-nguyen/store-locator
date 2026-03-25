@@ -62,3 +62,38 @@ Hierarchy: Server -> Database -> Schema -> Table
 
 * List all database: `SELECT datname from pg_database;`
 
+
+## Next.js
+
+* `const [state, setState] = React.useState(initialValue);`
+    * `React.useState` returns a pair of current value and a function to update that value
+    * `setState()` will set new value and **notify React to automatically update UI** that use the value 
+
+* `React.useEffect(function, dependencies);`
+    * It tells React to run a function after finished painting the UI
+    * **Run once on Mount**: if dependencies is an empty array, the effect run only once when the component first appears:
+    ```
+    useEffect(() => {
+        fetchCafes();
+    }, []);
+    ```
+
+    * **Run on update**: if you put variable inside dependencies array, the effect run anytime the variable changed
+    ```
+    useEffect(() => {
+        fetchCafes(center.lat, center.lng);
+    }, [center]); // Runs whenever 'center' changes
+    ```
+
+    * **Cleanup**: if you return a function in the end of useEffect, that function is called to cleanup
+    ```
+    useEffect(() => {
+        // Initialize map
+        const map = L.map('map-container').setView([10.7, 106.6], 13);
+
+        return () => {
+            // Cleanup: Completely destroy the map instance
+            map.remove();
+        };
+    }, []);
+    ```
