@@ -1,0 +1,33 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        // Debug the Next.js server-side code
+        {
+            "name": "Next.js: Debug Server-side",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "npm run dev",
+            "autoAttachChildProcesses": true
+        },
+        // Debug the Next.js client-side code in the browser
+        {
+            "name": "Next.js: Debug Client-side",
+            "type": "chrome", // or "msedge"
+            "request": "launch",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}"
+        },
+        // Debug both client and server simultaneously
+        {
+            "name": "Next.js: Debug Full Stack",
+            "type": "chrome", // or "msedge"
+            "request": "launch",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}",
+            "serverReadyAction": {
+                "action": "startDebugging",
+                "name": "Next.js: Debug Server-side"
+            }
+        }
+    ]
+}
