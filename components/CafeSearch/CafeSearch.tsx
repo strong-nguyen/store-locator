@@ -6,8 +6,9 @@ interface Props {
 }
 
 const CafeSearch = ({ onSearchFinished }: Props) => {
-    const [longitude, setLongitude] = React.useState('');
-    const [latitude, setLatitude] = React.useState('');
+    // Default value is at QuangTrung Software Park
+    const [longitude, setLongitude] = React.useState(106.628300);
+    const [latitude, setLatitude] = React.useState(10.853844);
 
     const [cafes, setCafes] = React.useState<Cafe[]>([]); // Store list of nearest cafes after searching
 
@@ -26,7 +27,7 @@ const CafeSearch = ({ onSearchFinished }: Props) => {
             console.log("Postgres returns:", data);
 
             // Update nearest cafes on map
-            onSearchFinished(data, [parseFloat(longitude), parseFloat(latitude)]);
+            onSearchFinished(data, [longitude, latitude]);
 
             setCafes(data); // Update list of cafes on UI
         } catch (error) {
@@ -36,10 +37,10 @@ const CafeSearch = ({ onSearchFinished }: Props) => {
 
     return (
         <div>
-            <h1>Enter your location:</h1>
-            <div>Longitude:</div>
+            <h1 className='text-blue-600 font-bold text-2xl mb-3'>Enter your location</h1>
+            <div>Longitude</div>
             <input type="number" min="-180" max="180" step="any" placeholder='Enter your longitude' className='border-2 border-gray-300 rounded-md p-2 mb-4 w-full max-w-sm' value={longitude} onChange={(e) => setLongitude(e.target.value)} />
-            <div>Latitude:</div>
+            <div>Latitude</div>
             <input type="number" min="-90" max="90" step="any" placeholder='Enter your latitude' className='border-2 border-gray-300 rounded-md p-2 mb-4 w-full max-w-sm' value={latitude} onChange={(e) => setLatitude(e.target.value)} />
             <button className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors cursor-pointer' onClick={searchNearestCafe}>
                 Search Nearest Cafe

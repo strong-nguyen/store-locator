@@ -27,19 +27,22 @@ export default function Home() {
   const [center, setCenter] = React.useState<[number, number]>([10.7765, 106.6947]);  // Default center is HCM City
 
   return (
-    <div>
-      {/* Cafe search component */}
-      <CafeSearch onSearchFinished={(cafesList: Cafe[], searchCenter: [number, number]) => {
-        setCafes(cafesList);
-        setCenter(searchCenter);
-      }} />
-      <div className="flex min-h-screen flex-col items-center p-8">
+    <div className='flex'>
+      <div className='w-[30%] ml-8 mt-10'>
+        {/* Cafe search component */}
+        <CafeSearch onSearchFinished={(cafesList: Cafe[], searchCenter: [number, number]) => {
+          setCafes(cafesList);
+          setCenter(searchCenter);
+        }} />
+      </div>
+
+      <div className="flex w-[70%] min-h-screen flex-col items-center p-8">
         <h1 className="text-2xl font-bold mb-6 text-rose-800">
           Find Cafe Near You
         </h1>
 
         {/* Container for Leaflet map, need define the height for it */}
-        <div className="h-[600px] w-full max-w-5xl shadow-xl overflow-hidden rounded-xl">
+        <div className="h-[650px] w-full max-w-5xl shadow-xl overflow-hidden rounded-xl">
           <MapWithNoSSR cafes={cafes} center={center} />
         </div>
       </div>
