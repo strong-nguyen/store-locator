@@ -23,12 +23,12 @@ This application supports the following functionalities:
 2. Work with Postgre SQL -> **done**
     * Open pg Admin and create database, schema and table to store cafe features
     * Create map_features_db: `CREATE DATABASE map_features_db;`
-    * Install PostGIS extension: CREATE EXTENSION IF NOT EXISTS postgis;
+    * Install PostGIS extension for the database: `CREATE EXTENSION IF NOT EXISTS postgis;`
     * However, it is failed then we need to install PostGIS extension using Application Stack Builder to install it first.
 
-    * Check PostGIS version: SELECT postgis_full_version();
+    * Check PostGIS version: `SELECT postgis_full_version();`
 
-    * Create schema: CREATE SCHEMA features;
+    * Create schema: `CREATE SCHEMA features;`
     * Create table with Postgis GEOGRAPHY data:
     ```
     CREATE TABLE features.cafe (
@@ -40,7 +40,7 @@ This application supports the following functionalities:
     );
     ```
 
-    * Note that, it create a geom with GEOGRAPHY datastructure which is faster for GIS operation
+    * Note that, it creates a `geom` column with GEOGRAPHY data structure which is faster for GIS operation
 
     * Create index: `CREATE INDEX idx_locations_geom ON features.cafe USING GIST (geom);`
     * GIST mechanism: apply R-Tree to data when insert it to DB
@@ -58,7 +58,7 @@ This application supports the following functionalities:
 
 ## PostgreSQL:
 
-Hierachy: Server -> Database -> Schema -> Table
+Hierarchy: Server -> Database -> Schema -> Table
 
-* List all database: SELECT datname from pg_database;
+* List all database: `SELECT datname from pg_database;`
 
