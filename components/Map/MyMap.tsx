@@ -1,9 +1,10 @@
 "use client"; // Should use this because Leaflet use window object
 
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useEffect } from 'react';
+import { useMap } from 'react-leaflet';
 
 // Define the icon of location marker
 const locationMarkerIcon = new L.Icon({
@@ -13,17 +14,24 @@ const locationMarkerIcon = new L.Icon({
     iconAnchor: [12, 41],
 });
 
-// Center the map
-function RecenterMap({ center }: { center: [number, number] }) {
-    const map = useMap();
+
+
+function SearchHandler({ searchResult }: { searchResult: [number, number] }) {
+    const map = useMap(); // Access the map instance
+
     useEffect(() => {
-        map.setView(center);
-    }, [center, map]);
+        if (searchResult) {
+            // Your callback logic here
+            console.log("lat: " + searchResult[0] + ", long: " + searchResult[1]);
+            map.flyTo([searchResult[0], searchResult[1]], 13);
+        }
+    }, [searchResult]);
+
     return null;
 }
 
 export default function MyMap({ cafes, center }: { cafes: any[], center: [number, number] }) {
-    // const position: [number, number] = [10.7765, 106.6947]; // Tọa độ TP.HCM
+    // const position: [number, number] = [10.7765, 106.6947]; // HCM coordinates
 
     return (
         <MapContainer
@@ -56,6 +64,8 @@ export default function MyMap({ cafes, center }: { cafes: any[], center: [number
                     </Popup>
                 </Marker>
             ))}
+
+            <SearchHandler searchResult={center} />
         </MapContainer>
     );
 }

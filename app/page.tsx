@@ -2,13 +2,15 @@
 import CafeSearch from '@/components/CafeSearch/CafeSearch';
 import dynamic from 'next/dynamic';
 import React from 'react';
+import { useEffect } from 'react';
+import { useMap } from 'react-leaflet';
 
 // Import Map component with ssr: false
 const MapWithNoSSR = dynamic(() => import('@/components/Map/MyMap'), {
   ssr: false,
   loading: () => (
     <div className="h-full w-full flex items-center justify-center bg-gray-100">
-      <p className="text-gray-500 font-medium">Đang tải bản đồ...</p>
+      <p className="text-gray-500 font-medium">Loading Leaflet map...</p>
     </div>
   )
 });
@@ -26,13 +28,15 @@ export default function Home() {
   const [cafes, setCafes] = React.useState<Cafe[]>([]);
   const [center, setCenter] = React.useState<[number, number]>([10.7765, 106.6947]);  // Default center is HCM City
 
+  // RecenterMap(center);
+
   return (
     <div className='flex'>
       <div className='w-[30%] ml-8 mt-10'>
         {/* Cafe search component */}
         <CafeSearch onSearchFinished={(cafesList: Cafe[], searchCenter: [number, number]) => {
           setCafes(cafesList);
-          setCenter(searchCenter);
+          setCenter([searchCenter[1], searchCenter[0]]);  // Change to [lat, long] val
         }} />
       </div>
 
